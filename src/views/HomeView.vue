@@ -1,11 +1,11 @@
 <template>
   <div class="todo-class">
 
-    <form @submit.prevent="addTodo">
+    <form @submit.prevent="addTodo" class=" dark:bg-slate-600">
       <div class="relative">
         <input type="text"
-          class="block w-full p-4 pl-10 text-sm  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Todo" v-model="newTodoContent" />
+          class="block w-full p-4 pl-10 text-sm  text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-lime-500 focus:border-lime-500 dark:bg-pink-700 dark:border-lime-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-lime-500 dark:focus:border-lime-500"
+          placeholder="Todo..." v-model="newTodoContent" />
         <button
           class="text-white absolute right-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           :disabled="!newTodoContent">Add</button>
@@ -16,8 +16,10 @@
     <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
       <li class="pt-3 pb-0 sm:pt-4 shadow-md" v-for="(todo, index) in todos" v-bind:key="todo.id">
 
+
+        
         <div class="flex bg-grey-light w-full h-auto p-2 mt-4 rounded-lg"
-          :class="todo.status ? '  bg-yellow-100' : '  bg-yellow-300'">
+          :class="todo.status ? '  bg-lime-100' : '  bg-lime-300'">
           <h3 class="w-5/6 font-sans font-light text-2xl text-left bg-grey-lightest pt-1 rounded-lg"
             :class="{ 'line-through': todo.status }"> {{ todo.title }}</h3>
           <div class="w-1/6 text-right pr-2 xHolder">
@@ -30,7 +32,8 @@
 
             <button type="button"
               class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-              @click="removeTodo(todo.id)">X</button>
+              @click="removeTodo(todo.id)">- </button>
+            <!-- <font-awesome-icon icon="fas fa-spinner fa-spin" rotation="90"  /> -->
           </div>
         </div>
 
@@ -38,6 +41,7 @@
     </ul>
   </div>
 </template>
+
 
 <script>
 
@@ -56,7 +60,7 @@ import { collection, doc, getDocs, addDoc, onSnapshot, deleteDoc, updateDoc } fr
 const todos = ref([
   {
     id: '1',
-    title: 'Wakeup',
+    title: 'Wake up',
     status: true
   },
   {
@@ -71,6 +75,7 @@ const todos = ref([
   }
 
 ])
+
 const newTodoContent = ref('')
 const todosCollectionRef = collection(db, "todo-vue")
 const addTodo = () => {
@@ -80,10 +85,10 @@ const addTodo = () => {
     status: false
   }
   todos.value.unshift(newTodo)
- /* addDoc(todosCollectionRef, {
-    title: newTodoContent.value,
-    status: false
-  }); */
+  /* addDoc(todosCollectionRef, {
+     title: newTodoContent.value,
+     status: false
+   }); */
   newTodoContent.value = ''
 }
 
@@ -138,6 +143,7 @@ onMounted(async () => {
   margin: 0 auto;
 
   /* background: linear-gradient(to right,#39abdf,#63bc5e); */
+
 
 }
 </style>
